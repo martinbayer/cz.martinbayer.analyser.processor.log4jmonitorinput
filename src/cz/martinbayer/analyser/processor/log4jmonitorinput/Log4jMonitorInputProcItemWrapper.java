@@ -2,7 +2,7 @@ package cz.martinbayer.analyser.processor.log4jmonitorinput;
 
 import org.eclipse.swt.events.MouseEvent;
 
-import cz.martinbayer.analyser.impl.ConcreteXMLog;
+import cz.martinbayer.analyser.impl.ConcreteE4LogsisLog;
 import cz.martinbayer.analyser.processor.log4jmonitorinput.gui.paletteitem.processor.Log4jMonitorInputProcLogic;
 import cz.martinbayer.analyser.processor.log4jmonitorinput.paletteitem.Log4jMonitorInputPaletteItem;
 import cz.martinbayer.analyser.processors.IProcessorItemWrapper;
@@ -10,7 +10,7 @@ import cz.martinbayer.analyser.processors.IProcessorLogic;
 import cz.martinbayer.analyser.processors.IProcessorsPaletteItem;
 
 public class Log4jMonitorInputProcItemWrapper implements
-		IProcessorItemWrapper<ConcreteXMLog> {
+		IProcessorItemWrapper<ConcreteE4LogsisLog> {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Log4jMonitorInputProcItemWrapper implements
 	private Log4jMonitorInputPaletteItem item;
 
 	@Override
-	public IProcessorLogic<ConcreteXMLog> getProcessorLogic() {
+	public IProcessorLogic<ConcreteE4LogsisLog> getProcessorLogic() {
 		if (logic == null) {
 			logic = new Log4jMonitorInputProcLogic();
 		}
@@ -42,7 +42,7 @@ public class Log4jMonitorInputProcItemWrapper implements
 	}
 
 	@Override
-	public IProcessorItemWrapper<ConcreteXMLog> getInstance() {
+	public IProcessorItemWrapper<ConcreteE4LogsisLog> getInstance() {
 		return new Log4jMonitorInputProcItemWrapper();
 	}
 

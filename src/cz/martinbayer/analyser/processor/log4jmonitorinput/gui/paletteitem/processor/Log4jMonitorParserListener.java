@@ -3,9 +3,9 @@ package cz.martinbayer.analyser.processor.log4jmonitorinput.gui.paletteitem.proc
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import cz.martinbayer.analyser.impl.ConcreteXMLog;
+import cz.martinbayer.analyser.impl.ConcreteE4LogsisLog;
 import cz.martinbayer.analyser.processors.model.ELogLevel;
-import cz.martinbayer.analyser.processors.model.XMLogData;
+import cz.martinbayer.analyser.processors.model.E4LogsisLogData;
 import cz.martinbayer.logparser.log4j2.pattern.monitors.types.DateTimePattern;
 import cz.martinbayer.logparser.log4j2.pattern.monitors.types.LevelPattern;
 import cz.martinbayer.logparser.log4j2.pattern.monitors.types.MessageExceptionPattern;
@@ -15,13 +15,13 @@ import cz.martinbayer.logparser.logic.ILogParserListener;
 import cz.martinbayer.logparser.logic.LogParserPhase;
 
 public class Log4jMonitorParserListener implements ILogParserListener {
-	private ConcreteXMLog object;
-	private XMLogData<ConcreteXMLog> logData;
+	private ConcreteE4LogsisLog object;
+	private E4LogsisLogData<ConcreteE4LogsisLog> logData;
 	private Log4jMonitorInputProcessor inputProcessor;
 
 	public Log4jMonitorParserListener(
 			Log4jMonitorInputProcessor inputProcessor,
-			XMLogData<ConcreteXMLog> logData) {
+			E4LogsisLogData<ConcreteE4LogsisLog> logData) {
 		this.inputProcessor = inputProcessor;
 		this.logData = logData;
 	}
@@ -29,7 +29,7 @@ public class Log4jMonitorParserListener implements ILogParserListener {
 	@Override
 	public void parsed(ILogParserEvent event) {
 		if (event.getPhase() == LogParserPhase.START) {
-			object = new ConcreteXMLog();
+			object = new ConcreteE4LogsisLog();
 		} else if (event.getPhase() == LogParserPhase.FINISH) {
 			logData.addLogRecord(object);
 			object = null;
@@ -68,7 +68,7 @@ public class Log4jMonitorParserListener implements ILogParserListener {
 		}
 	}
 
-	public XMLogData<ConcreteXMLog> getData() {
+	public E4LogsisLogData<ConcreteE4LogsisLog> getData() {
 		return logData;
 	}
 }

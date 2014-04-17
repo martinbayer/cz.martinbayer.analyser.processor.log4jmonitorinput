@@ -2,17 +2,21 @@ package cz.martinbayer.analyser.processor.log4jmonitorinput.gui.paletteitem.proc
 
 import java.io.File;
 
-import cz.martinbayer.analyser.impl.ConcreteXMLog;
+import cz.martinbayer.analyser.impl.ConcreteE4LogsisLog;
 import cz.martinbayer.analyser.processors.IProcessorLogic;
 import cz.martinbayer.analyser.processors.types.LogProcessor;
 
 public class Log4jMonitorInputProcLogic implements
-		IProcessorLogic<ConcreteXMLog> {
+		IProcessorLogic<ConcreteE4LogsisLog> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7105281747338915979L;
 	private Log4jMonitorInputProcessor processor;
 
 	@Override
-	public LogProcessor<ConcreteXMLog> getProcessor() {
+	public LogProcessor<ConcreteE4LogsisLog> getProcessor() {
 		if (processor == null) {
 			processor = new Log4jMonitorInputProcessor();
 		}
@@ -21,14 +25,5 @@ public class Log4jMonitorInputProcLogic implements
 
 	public void setLogFiles(File[] logFiles) {
 		((Log4jMonitorInputProcessor) getProcessor()).setLogFiles(logFiles);
-	}
-
-	public void setPattern(String pattern) {
-		((Log4jMonitorInputProcessor) getProcessor()).setPattern(pattern);
-	}
-
-	public void setDateTimeFormat(String dateTimeFormat) {
-		((Log4jMonitorInputProcessor) getProcessor())
-				.setDateTimeFormat(dateTimeFormat);
 	}
 }

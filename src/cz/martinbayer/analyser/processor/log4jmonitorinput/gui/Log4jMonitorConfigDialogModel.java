@@ -7,8 +7,8 @@ import java.util.List;
 
 import cz.martinbayer.utils.model.ObservableModelObject;
 
-public class Log4jMonitorConfigDialogModel extends ObservableModelObject implements
-		Serializable {
+public class Log4jMonitorConfigDialogModel extends ObservableModelObject
+		implements Serializable {
 
 	/**
 	 * 
@@ -20,8 +20,6 @@ public class Log4jMonitorConfigDialogModel extends ObservableModelObject impleme
 	public static final String PROPERTY_AVAILABLE_EXTENSIONS = "availableExtensions";
 	public static final String PROPERTY_FILES_COUNT = "filesCount";
 	public static final String PROPERTY_FILES_SIZE = "filesSize";
-	public static final String PROPERTY_PATTERN = "pattern";
-	public static final String PROPERTY_DATE_TIME_FORMAT = "dateTimeFormat";
 
 	private String selectedDirectoryPath;
 	private List<String> selectedExtensions;
@@ -29,8 +27,6 @@ public class Log4jMonitorConfigDialogModel extends ObservableModelObject impleme
 	private ArrayList<String> availableExtensions;
 	private int filesCount;
 	private long filesSize;
-	private String pattern;
-	private String dateTimeFormat;
 
 	public final String getSelectedDirectoryPath() {
 		return selectedDirectoryPath;
@@ -100,23 +96,4 @@ public class Log4jMonitorConfigDialogModel extends ObservableModelObject impleme
 		firePropertyChange(PROPERTY_FILES_SIZE, this.filesSize,
 				this.filesSize = filesSize);
 	}
-
-	public final String getPattern() {
-		return pattern;
-	}
-
-	public final void setPattern(String pattern) {
-		firePropertyChange(PROPERTY_PATTERN, this.pattern,
-				this.pattern = pattern);
-	}
-
-	public final String getDateTimeFormat() {
-		return this.dateTimeFormat;
-	}
-
-	public final void setDateTimeFormat(String dateTimeFormat) {
-		firePropertyChange(PROPERTY_DATE_TIME_FORMAT, this.dateTimeFormat,
-				this.dateTimeFormat = dateTimeFormat);
-	}
-
 }
