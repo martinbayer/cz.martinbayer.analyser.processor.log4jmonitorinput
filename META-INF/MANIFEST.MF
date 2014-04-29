@@ -8,6 +8,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Import-Package: cz.martinbayer.analyser.impl,
  javax.inject;version="1.0.0",
  org.apache.commons.io,
+ org.eclipse.e4.core.contexts,
  org.osgi.framework;version="1.3.0",
  org.slf4j
 Bundle-ActivationPolicy: lazy

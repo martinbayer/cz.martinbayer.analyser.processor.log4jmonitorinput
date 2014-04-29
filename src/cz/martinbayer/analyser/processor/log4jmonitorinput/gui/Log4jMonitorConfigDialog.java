@@ -67,8 +67,8 @@ public class Log4jMonitorConfigDialog extends TitleAreaDialog {
 	@Override
 	public void create() {
 		super.create();
-		setTitle("Logback source configuration");
-		setMessage("Select folder with logback log records",
+		setTitle("Log4J monitor source configuration");
+		setMessage("Select folder or files created by Log4J monitor",
 				IMessageProvider.INFORMATION);
 	}
 

@@ -4,9 +4,12 @@ import java.io.File;
 
 import cz.martinbayer.analyser.impl.ConcreteE4LogsisLog;
 import cz.martinbayer.analyser.processors.types.InputProcessor;
-import cz.martinbayer.logparser.log4j2.monitors.handler.Log4JMonitorHandler;
+import cz.martinbayer.logparser.ILogEventListener;
+import cz.martinbayer.logparser.log4j.monitors.handler.Log4jMonitorReader;
+import cz.martinbayer.logparser.logic.handler.LogHandler;
 
-public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisLog> {
+public class Log4jMonitorInputProcessor extends
+		InputProcessor<ConcreteE4LogsisLog> {
 
 	/**
 	 * 
@@ -15,6 +18,8 @@ public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisL
 	private static final String MONITORS_DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss.SSS";
 	private File[] logFiles;
 	private transient Log4jMonitorParserListener parserListener;
+	private Log4jMonitorEventListener eventListener;
+	private transient LogHandler handler;
 
 	public Log4jMonitorInputProcessor() {
 		super();
@@ -28,11 +33,10 @@ public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisL
 
 	@Override
 	protected void read() {
-		Log4JMonitorHandler handler = Log4JMonitorHandler.getInstance(logFiles,
-				"UTF-8");
+		Log4jMonitorReader reader = new Log4jMonitorReader();
+		handler = LogHandler.getInstance(logFiles, "UTF-8", reader,
+				eventListener);
 		handler.doParse(parserListener);
-		System.out.println("size:"
-				+ parserListener.getData().getLogRecords().size());
 	}
 
 	/**
@@ -43,7 +47,10 @@ public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisL
 	 */
 
 	public final void setLogFiles(File[] logFiles) {
-		this.logFiles = logFiles;
+		if (this.logFiles != logFiles) {
+			logData.clearAll();
+			this.logFiles = logFiles;
+		}
 	}
 
 	public final File[] getLogFiles() {
@@ -54,6 +61,7 @@ public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisL
 	public void init() {
 		super.init();
 		parserListener = new Log4jMonitorParserListener(this, logData);
+		eventListener = new Log4jMonitorEventListener();
 	}
 
 	/**
@@ -73,5 +81,22 @@ public class Log4jMonitorInputProcessor extends InputProcessor<ConcreteE4LogsisL
 
 	public String getDateTimeFormat() {
 		return MONITORS_DATE_TIME_FORMAT;
+	}
+
+	class Log4jMonitorEventListener implements ILogEventListener {
+
+		@Override
+		public void setLogEventStatus(String status) {
+			submitState(status);
+		}
+
+	}
+
+	@Override
+	public void cancel() {
+		super.cancel();
+		if (handler != null) {
+			handler.stopImmediatelly();
+		}
 	}
 }
